@@ -6,7 +6,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className="w-full bg-gray-900/50 py-1 shadow sticky top-0 border-b border-gray-700"
+      className="w-full z-50 bg-gray-900/50 py-1 shadow sticky top-0 border-b border-gray-700"
       style={{ backdropFilter: "blur(8px)" }}
     >
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">

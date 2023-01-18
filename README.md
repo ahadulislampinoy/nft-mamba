@@ -8,18 +8,19 @@
 
 Hosted in Vercel -> [NFT Mamba](https://nftmamba.vercel.app/)
 
-<!-- ## Features -->
+## Features
 
-<!-- - Features -->
+- 404 Error page
 
 ## Resources & Credits
 
 - Different Tailwind Components
-<!-- - [package](package) -->
+- [Hero icons](https://heroicons.com/)
 
 ## Tech Stack
 
 - TailwindCSS
 - React
 - React Router
+- GraphQL
 - Vercel
