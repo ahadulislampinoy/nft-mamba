@@ -11,6 +11,7 @@ Hosted in Vercel -> [NFT Mamba](https://nftmamba.vercel.app/)
 ## Features
 
 - 404 Error page
+- Loading spinner on content loading
 
 ## Resources & Credits
 

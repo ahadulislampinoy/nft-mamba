@@ -1,5 +1,6 @@
 import {
   ArrowsRightLeftIcon,
+  ChatBubbleLeftRightIcon,
   ChevronDownIcon,
   CircleStackIcon,
 } from "@heroicons/react/24/solid";
@@ -67,27 +68,52 @@ const Gallrey = () => {
           </div>
         </div>
       </main>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 rounded-lg">
-        <Link to="#" className="group relative block bg-black rounded-lg">
-          <img
-            alt="Developer"
-            src="https://images.unsplash.com/photo-1603871165848-0aa92c869fa1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80"
-            className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-lg"
-          />
+      {content.length === 0 ? (
+        <div className="h-screen flex justify-center items-center">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-orange-600"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 rounded-lg">
+          {content.map((item, index) => (
+            <Link
+              key={index}
+              to={`/post/${item.id}`}
+              className="group relative block bg-black rounded-lg"
+            >
+              <img
+                alt="Developer"
+                src={`https://lens.infura-ipfs.io/ipfs/${
+                  item.metadata.media[0].original.url.split("//")[1]
+                }`}
+                className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-lg"
+              />
 
-          <div className="relative p-8">
-            <div className="mt-64">
-              <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="text-sm text-white">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Omnis perferendis hic asperiores quibusdam quidem voluptates
-                  doloremque reiciendis nostrum harum. Repudiandae?
-                </p>
+              <div className="relative p-4 text-gray-50">
+                <div className="mt-32">
+                  <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-y-3">
+                    <p className="text-amber-300 font-semibold">
+                      @ {item?.profile?.handle}
+                    </p>
+                    <p>Created at: {item.createdAt.slice(0, 10)}</p>
+                    <p>
+                      <CircleStackIcon className="inline-block h-5 w-5 mr-2" />
+                      {item.stats.totalAmountOfCollects}
+                    </p>
+                    <p>
+                      <ArrowsRightLeftIcon className="inline-block h-5 w-5 mr-2" />
+                      {item.stats.totalAmountOfMirrors}
+                    </p>
+                    <p>
+                      <ChatBubbleLeftRightIcon className="inline-block h-5 w-5 mr-2" />
+                      {item.stats.totalAmountOfComments}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </Link>
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
