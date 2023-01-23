@@ -1,8 +1,20 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
+
+  const handleToast = () => {
+    toast("Fixing website issue, apologies for the inconvenience", {
+      icon: "🙏🏻",
+      style: {
+        borderRadius: "10px",
+        background: "#2B3241",
+        color: "#fff",
+      },
+    });
+  };
 
   return (
     <nav
@@ -69,12 +81,18 @@ const NavBar = () => {
             </ul>
             <ul className="mt-3 flex flex-col md:hidden space-y-2 justify-center">
               <li className="text-white font-semibold hover:text-indigo-200">
-                <button className="inline-block px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800">
+                <button
+                  className="inline-block px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                  onClick={() => handleToast()}
+                >
                   Sign in
                 </button>
               </li>
               <li className="text-white font-semibold hover:text-indigo-200">
-                <button className="inline-block px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100">
+                <button
+                  className="inline-block px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                  onClick={() => handleToast()}
+                >
                   Sign up
                 </button>
               </li>
@@ -82,10 +100,16 @@ const NavBar = () => {
           </div>
         </div>
         <div className="hidden space-x-2 md:inline-block">
-          <button className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800">
+          <button
+            className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+            onClick={() => handleToast()}
+          >
             Sign in
           </button>
-          <button className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100">
+          <button
+            className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+            onClick={() => handleToast()}
+          >
             Sign up
           </button>
         </div>

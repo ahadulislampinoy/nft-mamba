@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import ExplorePublications from "./components/ExplorePublications";
 import GetPostComments from "./components/GetPostComments";
@@ -15,6 +16,7 @@ function App() {
       <GetPostComments />
       <GetUserPosts />
       <GetUserProfile />
+      <Toaster />
     </div>
   );
 }

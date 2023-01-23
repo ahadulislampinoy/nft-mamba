@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Gallrey = () => {
-  const { content, setInputValue } = useContext(AuthContext);
+  const { content, setInputValue, setPost } = useContext(AuthContext);
   return (
     <section className="my-10 px-4 mx-auto lg:max-w-7xl md:px-8">
       <h1 className="text-gray-300 text-base font-medium pb-2">Sort by:</h1>
@@ -77,6 +77,7 @@ const Gallrey = () => {
             <Link
               key={index}
               to={`/post/${item.id}`}
+              onClick={() => setPost([])}
               className="group relative block bg-black rounded-lg"
             >
               <img
@@ -90,7 +91,7 @@ const Gallrey = () => {
               <div className="relative p-4 text-gray-50">
                 <div className="mt-32">
                   <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-y-3">
-                    <p className="text-amber-300 font-semibold">
+                    <p className="text-[#abfe18] font-semibold">
                       @ {item?.profile?.handle}
                     </p>
                     <p>Created at: {item.createdAt.slice(0, 10)}</p>

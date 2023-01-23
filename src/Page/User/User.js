@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import React, { useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import unknowUserImg from "../../Assets/unknown.jpg";
 import { AuthContext } from "../../context/AuthProvider";
 
 const User = () => {
@@ -19,7 +20,7 @@ const User = () => {
 
   return (
     <>
-      {!userProfile || !userPosts ? (
+      {userPosts.length === 0 || Object.keys(userProfile).length === 0 ? (
         <div className="h-screen flex justify-center items-center">
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-orange-600"></div>
         </div>
@@ -33,9 +34,11 @@ const User = () => {
                     "https://lens.infura-ipfs.io/ipfs/"
                   )
                     ? userProfile?.picture?.original?.url
-                    : `https://lens.infura-ipfs.io/ipfs/${
+                    : userProfile?.picture?.original?.url
+                    ? `https://lens.infura-ipfs.io/ipfs/${
                         userProfile?.picture?.original?.url?.split("//")[1]
                       }`
+                    : unknowUserImg
                 }
                 alt=""
                 className="w-16 h-16 mx-auto rounded-full bg-gray-500 aspect-square"
@@ -46,18 +49,18 @@ const User = () => {
                     @{userProfile?.handle}
                   </h2>
                   <div className="flex justify-center items-center">
-                    <p className="px-5 text-xs sm:text-base text-gray-500">
+                    <div className="px-5 text-xs sm:text-base text-gray-500">
                       <p className="text-gray-50">
                         {userProfile?.stats?.totalFollowing}
                       </p>
                       Following
-                    </p>
-                    <p className="px-5 text-xs sm:text-base text-gray-500">
+                    </div>
+                    <div className="px-5 text-xs sm:text-base text-gray-500">
                       <p className="text-gray-50">
                         {userProfile?.stats?.totalFollowers}
                       </p>
                       Followers
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -87,19 +90,19 @@ const User = () => {
 
                     <div className="relative p-4 text-gray-50">
                       <div className="mt-64">
-                        <div className="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-x-4 flex">
-                          <p>
+                        <div className="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-x-4 flex justify-center items-center">
+                          <div>
                             <CircleStackIcon className="inline-block h-5 w-5 mr-2" />
                             {item.stats.totalAmountOfCollects}
-                          </p>
-                          <p>
+                          </div>
+                          <div>
                             <ArrowsRightLeftIcon className="inline-block h-5 w-5 mr-2" />
                             {item.stats.totalAmountOfMirrors}
-                          </p>
-                          <p>
+                          </div>
+                          <div>
                             <ChatBubbleLeftRightIcon className="inline-block h-5 w-5 mr-2" />
                             {item.stats.totalAmountOfComments}
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

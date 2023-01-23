@@ -7,17 +7,37 @@ import {
 import React, { useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import postUserImg from "../../Assets/postUser.png";
+import unknowUserImg from "../../Assets/unknown.jpg";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Post = () => {
-  const { setId, post, postComments } = useContext(AuthContext);
+  const {
+    setId,
+    post,
+    postComments,
+    setUserName,
+    setUserProfile,
+    setUserPosts,
+    setPostComments,
+    setProfileId,
+  } = useContext(AuthContext);
+
   const location = useLocation();
   useEffect(() => {
     setId(location?.pathname.split("/")[2]);
   }, [location?.pathname, setId]);
+
+  const handleClear = () => {
+    setUserName("");
+    setUserProfile({});
+    setUserPosts([]);
+    setPostComments([]);
+    setProfileId("");
+  };
+
   return (
     <>
-      {!post || !postComments ? (
+      {postComments.length === 0 || Object.keys(post).length === 0 ? (
         <div className="h-screen flex justify-center items-center">
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-orange-600"></div>
         </div>
@@ -54,26 +74,31 @@ const Post = () => {
                 </div>
 
                 <div className="px-8 py-4 rounded-lg bg-gray-800/95">
-                  <p className="text-green-500 text-lg font-bold text-center md:text-left space-x-2 py-5">
+                  <p className="text-[#abfe18] text-lg font-semibold text-center md:text-left space-x-2 py-5">
                     <img
                       src={postUserImg}
                       alt=""
                       className="h-5 w-5 inline-block"
                     />
-                    <Link to={`/user/${post?.profile?.handle}`}>
+                    <Link
+                      to={`/user/${post?.profile?.handle}`}
+                      onClick={() => handleClear()}
+                    >
                       @{post?.profile?.handle}
                     </Link>
                   </p>
 
-                  {post?.metadata?.description.split("\n").map((desc) => (
-                    <p className="text-gray-50 mb-4">{desc}</p>
+                  {post?.metadata?.description.split("\n").map((desc, i) => (
+                    <p key={i} className="text-gray-50 mb-4">
+                      {desc}
+                    </p>
                   ))}
 
                   <h2 className="text-gray-400 text-xl font-semibold text-center md:text-left mb-2 md:mb-4">
                     Comments
                   </h2>
                   {postComments?.items?.length === 0 ? (
-                    <div className="flex justify-center items-center text-center  h-[70vh]">
+                    <div className="flex justify-center items-center text-center h-[60vh]">
                       <div>
                         <ServerStackIcon className="h-16 w-16 text-gray-200 inline-block" />{" "}
                         <p className="text-xl mt-2 text-gray-100">
@@ -83,19 +108,24 @@ const Post = () => {
                     </div>
                   ) : (
                     <div className="overflow-y-auto h-56">
-                      {postComments?.items?.map((item) => (
-                        <div className="flex gap-3 py-4 border-b border-gray-600">
+                      {postComments?.items?.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex gap-3 py-4 border-b border-gray-600"
+                        >
                           <img
                             src={
                               item?.profile?.picture?.original?.url.includes(
                                 "https://lens.infura-ipfs.io/ipfs/"
                               )
                                 ? item?.profile?.picture?.original?.url
-                                : `https://lens.infura-ipfs.io/ipfs/${
+                                : item?.profile?.picture?.original?.url
+                                ? `https://lens.infura-ipfs.io/ipfs/${
                                     item?.profile?.picture?.original?.url?.split(
                                       "//"
                                     )[1]
                                   }`
+                                : unknowUserImg
                             }
                             alt=""
                             className="h-8 w-8 rounded-full"
@@ -103,7 +133,8 @@ const Post = () => {
                           <div>
                             <Link
                               to={`/user/${item?.profile?.handle}`}
-                              className="text-green-500 font-bold"
+                              className="text-[#abfe18] font-semibold"
+                              onClick={() => handleClear()}
                             >
                               @{item?.profile?.handle}
                             </Link>
