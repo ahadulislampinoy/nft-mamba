@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [userName, setUserName] = useState("");
   const [userProfile, setUserProfile] = useState({});
+  const [cursor, setCursor] = useState(null);
 
   const authValue = {
     inputValue,
@@ -32,6 +33,8 @@ const AuthProvider = ({ children }) => {
     setUserName,
     userProfile,
     setUserProfile,
+    cursor,
+    setCursor,
   };
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>

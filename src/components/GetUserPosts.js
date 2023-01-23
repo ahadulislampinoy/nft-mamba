@@ -3,12 +3,13 @@ import { AuthContext } from "../context/AuthProvider";
 import { getUserPosts } from "../lensQueries/getUserPosts";
 
 const GetUserPosts = () => {
-  const { setUserPosts, profileId } = useContext(AuthContext);
+  const { setUserPosts, profileId, cursor } = useContext(AuthContext);
 
   const init = async () => {
     try {
-      const response = await getUserPosts(profileId); // To get next result replace the cursor with the value of response.pageInfo.next
+      const response = await getUserPosts(profileId, cursor); // To get next result replace the cursor with the value of response.pageInfo.next
       setUserPosts(response?.data?.publications);
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -16,7 +17,7 @@ const GetUserPosts = () => {
 
   useEffect(() => {
     init();
-  }, [profileId]);
+  }, [profileId, cursor]);
 
   return <div></div>;
 };

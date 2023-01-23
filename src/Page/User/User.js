@@ -1,4 +1,6 @@
 import {
+  ArrowSmallLeftIcon,
+  ArrowSmallRightIcon,
   ArrowsRightLeftIcon,
   ChatBubbleLeftRightIcon,
   CircleStackIcon,
@@ -10,14 +12,19 @@ import unknowUserImg from "../../Assets/unknown.jpg";
 import { AuthContext } from "../../context/AuthProvider";
 
 const User = () => {
-  const { setProfileId, userPosts, setUserName, userProfile } =
-    useContext(AuthContext);
+  const {
+    setProfileId,
+    userPosts,
+    setUserName,
+    userProfile,
+    setCursor,
+    cursor,
+  } = useContext(AuthContext);
   const location = useLocation();
   useEffect(() => {
     setUserName(location?.pathname.split("/")[2]);
     setProfileId(userProfile?.id);
-  }, [location?.pathname, setProfileId, setUserName, userProfile?.id]);
-
+  }, [location?.pathname, setProfileId, setUserName, userProfile?.id, cursor]);
   return (
     <>
       {userPosts?.length === 0 || Object.keys(userProfile).length === 0 ? (
@@ -73,41 +80,61 @@ const User = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 rounded-lg p-4 bg-gray-800 w-full">
-                {userPosts?.items?.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={`/post/${item.id}`}
-                    className="group relative block bg-black rounded-lg"
-                  >
-                    <img
-                      alt="Developer"
-                      src={`https://lens.infura-ipfs.io/ipfs/${
-                        item.metadata.media[0].original.url.split("//")[1]
-                      }`}
-                      className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-lg"
-                    />
+              <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 rounded-lg p-4 bg-gray-800 w-full">
+                  {userPosts?.items?.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={`/post/${item.id}`}
+                      className="group relative block bg-black rounded-lg"
+                    >
+                      <img
+                        alt="Developer"
+                        src={`https://lens.infura-ipfs.io/ipfs/${
+                          item.metadata.media[0].original.url.split("//")[1]
+                        }`}
+                        className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50 rounded-lg"
+                      />
 
-                    <div className="relative p-4 text-gray-50">
-                      <div className="mt-64">
-                        <div className="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-x-4 flex justify-center items-center">
-                          <div>
-                            <CircleStackIcon className="inline-block h-5 w-5 mr-2" />
-                            {item.stats.totalAmountOfCollects}
-                          </div>
-                          <div>
-                            <ArrowsRightLeftIcon className="inline-block h-5 w-5 mr-2" />
-                            {item.stats.totalAmountOfMirrors}
-                          </div>
-                          <div>
-                            <ChatBubbleLeftRightIcon className="inline-block h-5 w-5 mr-2" />
-                            {item.stats.totalAmountOfComments}
+                      <div className="relative p-4 text-gray-50">
+                        <div className="mt-64">
+                          <div className="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 space-x-4 flex justify-center items-center">
+                            <div>
+                              <CircleStackIcon className="inline-block h-5 w-5 mr-2" />
+                              {item.stats.totalAmountOfCollects}
+                            </div>
+                            <div>
+                              <ArrowsRightLeftIcon className="inline-block h-5 w-5 mr-2" />
+                              {item.stats.totalAmountOfMirrors}
+                            </div>
+                            <div>
+                              <ChatBubbleLeftRightIcon className="inline-block h-5 w-5 mr-2" />
+                              {item.stats.totalAmountOfComments}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
+                <div className="flex justify-center my-6 space-x-6">
+                  <button
+                    type="button"
+                    onClick={() => setCursor(userPosts.pageInfo.prev)}
+                    class="py-2 px-4  bg-gray-700 hover:bg-gray-800  text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md rounded-lg"
+                  >
+                    <ArrowSmallLeftIcon className="h-5 w-5 text-gray-50 mr-1 inline-block" />
+                    Prev{" "}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCursor(userPosts.pageInfo.next)}
+                    class="py-2 px-4  bg-gray-700 hover:bg-gray-800  text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md rounded-lg"
+                  >
+                    Next
+                    <ArrowSmallRightIcon className="h-5 w-5 text-gray-50 ml-1  inline-block" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
