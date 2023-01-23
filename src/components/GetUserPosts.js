@@ -8,7 +8,7 @@ const GetUserPosts = () => {
   const init = async () => {
     try {
       const response = await getUserPosts(profileId); // To get next result replace the cursor with the value of response.pageInfo.next
-      setUserPosts(response.data.publications);
+      setUserPosts(response?.data?.publications);
     } catch (err) {
       console.log(err);
     }

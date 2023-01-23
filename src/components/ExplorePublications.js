@@ -16,7 +16,7 @@ const ExplorePublications = () => {
         limit: 24,
       };
       const response = await explorePublications(request); // To get next result replace the cursor with the value of response.pageInfo.next
-      setContent(response.data.explorePublications.items);
+      setContent(response?.data?.explorePublications?.items);
     } catch (err) {
       console.log(err);
     }

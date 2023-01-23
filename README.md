@@ -8,6 +8,15 @@ Welcome to our NFT showcase website, where you can explore the unique and one-of
 
 Hosted in Vercel -> [NFT Mamba](https://nftmamba.vercel.app/)
 
+### Extra Addons
+
+- Responsive
+- 404 Error Page
+- Loading spinner
+- Toast aleart
+- Fancy icons
+- Easy to navigate
+
 ## Resources & Credits
 
 - Different Tailwind Components

@@ -8,7 +8,7 @@ const GetPostComments = () => {
   const init = async () => {
     try {
       const response = await getPostComments(id); // To get next result replace the cursor with the value of response.pageInfo.next
-      setPostComments(response.data.publications);
+      setPostComments(response?.data?.publications);
     } catch (err) {
       console.log(err);
     }

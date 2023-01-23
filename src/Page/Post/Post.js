@@ -11,33 +11,15 @@ import unknowUserImg from "../../Assets/unknown.jpg";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Post = () => {
-  const {
-    setId,
-    post,
-    postComments,
-    setUserName,
-    setUserProfile,
-    setUserPosts,
-    setPostComments,
-    setProfileId,
-  } = useContext(AuthContext);
+  const { setId, post, postComments } = useContext(AuthContext);
 
   const location = useLocation();
   useEffect(() => {
     setId(location?.pathname.split("/")[2]);
   }, [location?.pathname, setId]);
-
-  const handleClear = () => {
-    setUserName("");
-    setUserProfile({});
-    setUserPosts([]);
-    setPostComments([]);
-    setProfileId("");
-  };
-
   return (
     <>
-      {postComments.length === 0 || Object.keys(post).length === 0 ? (
+      {postComments?.length === 0 || Object.keys(post).length === 0 ? (
         <div className="h-screen flex justify-center items-center">
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-orange-600"></div>
         </div>
@@ -80,10 +62,7 @@ const Post = () => {
                       alt=""
                       className="h-5 w-5 inline-block"
                     />
-                    <Link
-                      to={`/user/${post?.profile?.handle}`}
-                      onClick={() => handleClear()}
-                    >
+                    <Link to={`/user/${post?.profile?.handle}`}>
                       @{post?.profile?.handle}
                     </Link>
                   </p>
@@ -94,13 +73,13 @@ const Post = () => {
                     </p>
                   ))}
 
-                  <h2 className="text-gray-400 text-xl font-semibold text-center md:text-left mb-2 md:mb-4">
-                    Comments
+                  <h2 className="text-gray-400 text-xl font-semibold text-left mb-2 md:mb-4">
+                    Comments:
                   </h2>
                   {postComments?.items?.length === 0 ? (
                     <div className="flex justify-center items-center text-center h-[60vh]">
                       <div>
-                        <ServerStackIcon className="h-16 w-16 text-gray-200 inline-block" />{" "}
+                        <ServerStackIcon className="h-16 w-16 text-gray-400 inline-block" />{" "}
                         <p className="text-xl mt-2 text-gray-100">
                           No Comments Found
                         </p>
@@ -134,7 +113,6 @@ const Post = () => {
                             <Link
                               to={`/user/${item?.profile?.handle}`}
                               className="text-[#abfe18] font-semibold"
-                              onClick={() => handleClear()}
                             >
                               @{item?.profile?.handle}
                             </Link>

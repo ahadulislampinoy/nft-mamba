@@ -20,7 +20,7 @@ const User = () => {
 
   return (
     <>
-      {userPosts.length === 0 || Object.keys(userProfile).length === 0 ? (
+      {userPosts?.length === 0 || Object.keys(userProfile).length === 0 ? (
         <div className="h-screen flex justify-center items-center">
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-orange-600"></div>
         </div>
@@ -68,7 +68,7 @@ const User = () => {
             {userPosts?.items?.length === 0 ? (
               <div className="flex justify-center items-center text-center h-[70vh] bg-gray-800 w-full rounded-xl">
                 <div>
-                  <ServerStackIcon className="h-16 w-16 text-gray-200 inline-block" />{" "}
+                  <ServerStackIcon className="h-16 w-16 text-gray-400 inline-block" />
                   <p className="text-xl mt-2 text-gray-100">No Posts Found</p>
                 </div>
               </div>

@@ -8,7 +8,7 @@ const GetPosts = () => {
   const init = async () => {
     try {
       const response = await getPost(id); // To get next result replace the cursor with the value of response.pageInfo.next
-      setPost(response.data.publication);
+      setPost(response?.data?.publication);
     } catch (err) {
       console.log(err);
     }
