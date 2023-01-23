@@ -7,7 +7,11 @@ const AuthProvider = ({ children }) => {
   const [content, setContent] = useState([]);
   const [post, setPost] = useState({});
   const [id, setId] = useState("");
+  const [profileId, setProfileId] = useState("");
   const [postComments, setPostComments] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userProfile, setUserProfile] = useState({});
 
   const authValue = {
     inputValue,
@@ -20,6 +24,14 @@ const AuthProvider = ({ children }) => {
     setId,
     postComments,
     setPostComments,
+    profileId,
+    setProfileId,
+    userPosts,
+    setUserPosts,
+    userName,
+    setUserName,
+    userProfile,
+    setUserProfile,
   };
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>

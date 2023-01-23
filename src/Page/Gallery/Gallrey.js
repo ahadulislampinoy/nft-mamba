@@ -10,7 +10,6 @@ import { AuthContext } from "../../context/AuthProvider";
 
 const Gallrey = () => {
   const { content, setInputValue } = useContext(AuthContext);
-  console.log(content);
   return (
     <section className="my-10 px-4 mx-auto lg:max-w-7xl md:px-8">
       <h1 className="text-gray-300 text-base font-medium pb-2">Sort by:</h1>

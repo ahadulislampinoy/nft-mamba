@@ -60,7 +60,9 @@ const Post = () => {
                       alt=""
                       className="h-5 w-5 inline-block"
                     />
-                    <Link>@{post?.profile?.handle}</Link>
+                    <Link to={`/user/${post?.profile?.handle}`}>
+                      @{post?.profile?.handle}
+                    </Link>
                   </p>
 
                   {post?.metadata?.description.split("\n").map((desc) => (
@@ -99,7 +101,10 @@ const Post = () => {
                             className="h-8 w-8 rounded-full"
                           />
                           <div>
-                            <Link className="text-green-500 font-bold">
+                            <Link
+                              to={`/user/${item?.profile?.handle}`}
+                              className="text-green-500 font-bold"
+                            >
                               @{item?.profile?.handle}
                             </Link>
                             <p className="text-gray-50">
